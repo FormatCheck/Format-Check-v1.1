@@ -1,0 +1,7 @@
+python-docx==0.8.11
+docx==0.2.4
+lxml==4.9.1
+defusedxml==0.7.1
+docx2txt==0.8
+streamlit==1.11.1
+Pillow==9.2.0
