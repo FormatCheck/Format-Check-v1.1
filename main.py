@@ -10,6 +10,288 @@ logo = Image.open('logo.png')
 st.set_page_config(page_title='Format Check v1.1', page_icon=logo, layout='wide')
 
 
+# font name program function
+def font_name():
+    # TODO start of Font Name code --------------------
+    # add font name program banner
+    st.subheader("**Font Name**")
+    # access Word document file
+    WordFile = Document(uploaded_file)
+
+    # TODO Font Name code for TITLE ENGG1500 style
+    # check font name for TITLE ENGG1500 style (text on title page) ********************
+    title_font = set()  # store all TITLE ENGG1500 style font names in the set title_font
+    title_wrong_font = set()  # store unacceptable TITLE ENGG1500 style font names in the set title_wrong_font
+    title_wrong_font_words = sorted(set())  # store TITLE ENGG1500 style text that are in unacceptable fonts in the sorted list title_wrong_font_words
+    CORRECT_FONT_NAME_TITLE = None  # state the specified font for TITLE ENGG1500 style and store in the variable CORRECT_FONT_NAME_TITLE
+    TITLE_TEXT_STYLE = 'TITLE ENGG1500'  # state the specified style name for title page text and store in the variable TITLE_TEXT_STYLE
+    for paragraph in WordFile.paragraphs:
+        if TITLE_TEXT_STYLE == paragraph.style.name:
+            for run in paragraph.runs:
+                # add fonts from each run into the set title_font
+                title_font.add(run.font.name)
+                # check if fonts are unacceptable, if so, store in the set title_wrong_font
+                if run.font.name is not CORRECT_FONT_NAME_TITLE:
+                    title_wrong_font.add(run.font.name)
+                    # append TITLE ENGG1500 style text that contain unacceptable fonts in the sorted list title_wrong_font_words
+                    title_wrong_font_words.append(run.text)
+
+    # check if any elements in title_font are not CORRECT_FONT_NAME_TITLE and if title_font is not empty
+    if any(name is not CORRECT_FONT_NAME_TITLE for name in title_font) and len(title_font) != 0:
+        # print this if any elements in title_font are not CORRECT_FONT_NAME_TITLE and if title_font is not empty and print title_wrong_font and title_wrong_font_words contents
+        st.error(f'''
+        ❌ Text written in the TITLE ENGG1500 style have incorrect font(s): {', '.join(map(str, title_wrong_font))}  
+        🡆 Incorrect font(s) found here: {' >> '.join(map(str, title_wrong_font_words))}
+        ''')
+    # check if title_font is empty, if so this means that TITLE ENGG1500 style was not found
+    elif len(title_font) == 0:
+        # print this if title_font is empty, since TITLE ENGG1500 style was not found
+        st.info("ℹ️TITLE ENGG1500 style font name not found as this style was not used.")
+
+    # TODO Font Name code for HEADING 1 ENGG1500 style
+    # check font name for HEADING 1 ENGG1500 style (main headings) ********************
+    h1_font = set()  # store all HEADING 1 ENGG1500 style font names in the set h1_font
+    h1_wrong_font = set()  # store unacceptable HEADING 1 ENGG1500 style font names in the set h1_wrong_font
+    h1_wrong_font_words = sorted(set())  # store HEADING 1 ENGG1500 style text that are in unacceptable fonts in the sorted list h1_wrong_font_words
+    CORRECT_FONT_NAME_H1 = None  # state the specified font for HEADING 1 ENGG1500 style and store in the variable CORRECT_FONT_NAME_H1
+    H1_STYLE = 'HEADING 1 ENGG1500'  # state the specified style name for main headings and store in the variable H1_STYLE
+    for paragraph in WordFile.paragraphs:
+        if H1_STYLE == paragraph.style.name:
+            for run in paragraph.runs:
+                # add fonts from each run into the set h1_font
+                h1_font.add(run.font.name)
+                # check if fonts are unacceptable, if so, store in the set h1_wrong_font
+                if run.font.name is not CORRECT_FONT_NAME_H1:
+                    h1_wrong_font.add(run.font.name)
+                    # append HEADING 1 ENGG1500 style text that contain unacceptable fonts in the sorted list h1_wrong_font_words
+                    h1_wrong_font_words.append(run.text)
+
+    # check if any elements in h1_font are not CORRECT_FONT_NAME_H1 and if h1_font is not empty
+    if any(name is not CORRECT_FONT_NAME_H1 for name in h1_font) and len(h1_font) != 0:
+        # print this if any elements in h1_font are not CORRECT_FONT_NAME_H1 and if h1_font is not empty and print h1_wrong_font and h1_wrong_font_words contents
+        st.error(f'''
+        ❌ Text written in the HEADING 1 ENGG1500 style have incorrect font(s): {', '.join(map(str, h1_wrong_font))}  
+        🡆 Incorrect font(s) found here: {' >> '.join(map(str, h1_wrong_font_words))}
+        ''')
+    # check if h1_font is empty, if so this means that HEADING 1 ENGG1500 style was not found
+    elif len(h1_font) == 0:
+        # print this if h1_font is empty, since HEADING 1 ENGG1500 style was not found
+        st.info("ℹ️HEADING 1 ENGG1500 style font name not found as this style was not used.")
+
+    # TODO Font Name code for HEADING 2 ENGG1500 style
+    # check font name for HEADING 2 ENGG1500 style (sub headings) ********************
+    h2_font = set()  # store all HEADING 2 ENGG1500 style font names in the set h2_font
+    h2_wrong_font = set()  # store unacceptable HEADING 2 ENGG1500 style font names in the set h2_wrong_font
+    h2_wrong_font_words = sorted(set())  # store HEADING 2 ENGG1500 style text that are in unacceptable fonts in the sorted list h2_wrong_font_words
+    CORRECT_FONT_NAME_H2 = None  # state the specified font for HEADING 2 ENGG1500 style and store in the variable CORRECT_FONT_NAME_H2
+    H2_STYLE = 'HEADING 2 ENGG1500'  # state the specified style name for sub headings and store in the variable H2_STYLE
+    for paragraph in WordFile.paragraphs:
+        if H2_STYLE == paragraph.style.name:
+            for run in paragraph.runs:
+                # add fonts from each run into the set h2_font
+                h2_font.add(run.font.name)
+                # check if fonts are unacceptable, if so, store in the set h2_wrong_font
+                if run.font.name is not CORRECT_FONT_NAME_H2:
+                    h2_wrong_font.add(run.font.name)
+                    # append HEADING 2 ENGG1500 style text that contain unacceptable fonts in the sorted list h2_wrong_font_words
+                    h2_wrong_font_words.append(run.text)
+
+    # check if any elements in h2_font are not CORRECT_FONT_NAME_H2 and if h2_font is not empty
+    if any(name is not CORRECT_FONT_NAME_H2 for name in h2_font) and len(h2_font) != 0:
+        # print this if any elements in h2_font are not CORRECT_FONT_NAME_H2 and if h2_font is not empty and print h2_wrong_font and h2_wrong_font_words contents
+        st.error(f'''
+        ❌ Text written in the HEADING 2 ENGG1500 style have incorrect font(s): {', '.join(map(str, h2_wrong_font))}  
+        🡆 Incorrect font(s) found here: {' >> '.join(map(str, h2_wrong_font_words))}
+        ''')
+    # check if h2_font is empty, if so this means that HEADING 2 ENGG1500 style was not found
+    elif len(h2_font) == 0:
+        # print this if h2_font is empty, since HEADING 2 ENGG1500 style was not found
+        st.info("ℹ️HEADING 2 ENGG1500 style font name not found as this style was not used.")
+
+    # TODO Font Name code for HEADING 3 ENGG1500 style
+    # check font name for HEADING 3 ENGG1500 style (sub headings) ********************
+    h3_font = set()  # store all HEADING 3 ENGG1500 style font names in the set h3_font
+    h3_wrong_font = set()  # store unacceptable HEADING 3 ENGG1500 style font names in the set h3_wrong_font
+    h3_wrong_font_words = sorted(set())  # store HEADING 3 ENGG1500 style text that are in unacceptable fonts in the sorted list h3_wrong_font_words
+    CORRECT_FONT_NAME_H3 = None  # state the specified font for HEADING 3 ENGG1500 style and store in the variable CORRECT_FONT_NAME_H3
+    H3_STYLE = 'HEADING 3 ENGG1500'  # state the specified style name for sub headings and store in the variable H3_STYLE
+    for paragraph in WordFile.paragraphs:
+        if H3_STYLE == paragraph.style.name:
+            for run in paragraph.runs:
+                # add fonts from each run into the set h3_font
+                h3_font.add(run.font.name)
+                # check if fonts are unacceptable, if so, store in the set h3_wrong_font
+                if run.font.name is not CORRECT_FONT_NAME_H3:
+                    h3_wrong_font.add(run.font.name)
+                    # append HEADING 3 ENGG1500 style text that contain unacceptable fonts in the sorted list h3_wrong_font_words
+                    h3_wrong_font_words.append(run.text)
+
+    # check if any elements in h3_font are not CORRECT_FONT_NAME_H3 and if h3_font is not empty
+    if any(name is not CORRECT_FONT_NAME_H3 for name in h3_font) and len(h3_font) != 0:
+        # print this if any elements in h3_font are not CORRECT_FONT_NAME_H3 and if h3_font is not empty and print h3_wrong_font and h3_wrong_font_words contents
+        st.error(f'''
+        ❌ Text written in the HEADING 3 ENGG1500 style have incorrect font(s): {', '.join(map(str, h3_wrong_font))}  
+        🡆 Incorrect font(s) found here: {' >> '.join(map(str, h3_wrong_font_words))}
+        ''')
+    # check if h3_font is empty, if so this means that HEADING 3 ENGG1500 style was not found
+    elif len(h3_font) == 0:
+        # print this if h3_font is empty, since HEADING 3 ENGG1500 style was not found
+        st.info("ℹ️HEADING 3 ENGG1500 style font name not found as this style was not used.")
+
+    # TODO Font Name code for HEADING 4 ENGG1500 style
+    # check font name for HEADING 4 ENGG1500 style (sub headings) ********************
+    h4_font = set()  # store all HEADING 4 ENGG1500 style font names in the set h4_font
+    h4_wrong_font = set()  # store unacceptable HEADING 4 ENGG1500 style font names in the set h4_wrong_font
+    h4_wrong_font_words = sorted(set())  # store HEADING 4 ENGG1500 style text that are in unacceptable fonts in the sorted list h4_wrong_font_words
+    CORRECT_FONT_NAME_H4 = None  # state the specified font for HEADING 4 ENGG1500 style and store in the variable CORRECT_FONT_NAME_H4
+    H4_STYLE = 'HEADING 4 ENGG1500'  # state the specified style name for sub headings and store in the variable H4_STYLE
+    for paragraph in WordFile.paragraphs:
+        if H4_STYLE == paragraph.style.name:
+            for run in paragraph.runs:
+                # add fonts from each run into the set h4_font
+                h4_font.add(run.font.name)
+                # check if fonts are unacceptable, if so, store in the set h4_wrong_font
+                if run.font.name is not CORRECT_FONT_NAME_H4:
+                    h4_wrong_font.add(run.font.name)
+                    # append HEADING 4 ENGG1500 style text that contain unacceptable fonts in the sorted list h4_wrong_font_words
+                    h4_wrong_font_words.append(run.text)
+
+    # check if any elements in h4_font are not CORRECT_FONT_NAME_H4 and if h4_font is not empty
+    if any(name is not CORRECT_FONT_NAME_H4 for name in h4_font) and len(h4_font) != 0:
+        # print this if any elements in h4_font are not CORRECT_FONT_NAME_H4 and if h4_font is not empty and print h4_wrong_font and h4_wrong_font_words contents
+        st.error(f'''
+        ❌ Text written in the HEADING 4 ENGG1500 style have incorrect font(s): {', '.join(map(str, h4_wrong_font))}  
+        🡆 Incorrect font(s) found here: {' >> '.join(map(str, h4_wrong_font_words))}
+        ''')
+    # check if h4_font is empty, if so this means that HEADING 4 ENGG1500 style was not found
+    elif len(h4_font) == 0:
+        # print this if h4_font is empty, since HEADING 4 ENGG1500 style was not found
+        st.info("ℹ️HEADING 4 ENGG1500 style font name not found as this style was not used.")
+
+    # TODO Font Name code for BODY ENGG1500 style
+    # check font name for BODY ENGG1500 style (paragraphs) ********************
+    body_font = set()  # store all BODY ENGG1500 style font names in the set body_font
+    body_wrong_font = set()  # store unacceptable BODY ENGG1500 style font names in the set body_wrong_font
+    body_wrong_font_words = sorted(set())  # store BODY ENGG1500 style text that are in unacceptable fonts in the sorted list body_wrong_font_words
+    CORRECT_FONT_NAME_BODY = None  # state the specified font for BODY ENGG1500 style and store in the variable CORRECT_FONT_NAME_NORM
+    PARAGRAPH_STYLE = 'BODY ENGG1500'  # state the specified style name for paragraphs and store in the variable PARAGRAPH_STYLE
+    for paragraphs in WordFile.paragraphs:
+        if PARAGRAPH_STYLE == paragraphs.style.name:
+            for run in paragraphs.runs:
+                # add fonts from each run into the set body_font
+                body_font.add(run.font.name)
+                # check if fonts are unacceptable, if so, store in the set body_wrong_font
+                if run.font.name is not CORRECT_FONT_NAME_BODY:
+                    body_wrong_font.add(run.font.name)
+                    # append BODY ENGG1500 style text that contain unacceptable fonts in the sorted list body_wrong_font_words
+                    body_wrong_font_words.append(run.text)
+
+    # check if any elements in body_font are not CORRECT_FONT_NAME_BODY
+    if any(name is not CORRECT_FONT_NAME_BODY for name in body_font) and len(body_font) != 0:
+        # print this if any elements in body_font are not CORRECT_FONT_NAME_BODY and print body_wrong_font and body_wrong_font_words contents
+        st.error(f'''
+        ❌ Text written in the BODY ENGG1500 style have incorrect font(s): {', '.join(map(str, body_wrong_font))}  
+        🡆 Incorrect font(s) found here: {' >> '.join(map(str, body_wrong_font_words))}
+        ''')
+    # check if body_font is empty, if so this means that BODY ENGG1500 style was not found
+    elif len(body_font) == 0:
+        # print this if body_font is empty, which means that BODY ENGG1500 style was not found
+        st.info("ℹ️BODY ENGG1500 style font name not found as this style was not used.")
+
+    # TODO Font Name code for BULLET LIST ENGG1500 style
+    # check font name for BULLET LIST ENGG1500 style (dot points) ********************
+    bullet_font = set()  # store all BULLET LIST ENGG1500 style font names in the set bullet_font
+    bullet_wrong_font = set()  # store unacceptable BULLET LIST ENGG1500 style font names in the set bullet_wrong_font
+    bullet_wrong_font_words = sorted(set())  # store BULLET LIST ENGG1500 style text that are in unacceptable fonts in the sorted list bullet_wrong_font_words
+    CORRECT_FONT_NAME_BULLET = None  # state the specified font for BULLET LIST ENGG1500 style and store in the variable CORRECT_FONT_NAME_LIST
+    DOT_POINT_STYLE = 'BULLET LIST ENGG1500'  # state the specified style name for dot points and store in the variable DOT_POINT_STYLE
+    for paragraph in WordFile.paragraphs:
+        if DOT_POINT_STYLE == paragraph.style.name:
+            for run in paragraph.runs:
+                # add fonts from each run into the set bullet_font
+                bullet_font.add(run.font.name)
+                # check if fonts are unacceptable, if so, store in the set bullet_wrong_font
+                if run.font.name is not CORRECT_FONT_NAME_BULLET:
+                    bullet_wrong_font.add(run.font.name)
+                    # append BULLET LIST ENGG1500 style text that contain unacceptable fonts in the sorted list bullet_wrong_font_words
+                    bullet_wrong_font_words.append(run.text)
+
+    # check if any elements in bullet_font are not CORRECT_FONT_NAME_BULLET and if bullet_font is not empty
+    if any(name is not CORRECT_FONT_NAME_BULLET for name in bullet_font) and len(bullet_font) != 0:
+        # print this if any elements in bullet_font are not CORRECT_FONT_NAME_BULLET and if bullet_font is not empty and print bullet_wrong_font and bullet_wrong_font_words contents
+        st.error(f'''
+        ❌ Text written in the BULLET LIST ENGG1500 style have incorrect font(s): {', '.join(map(str, bullet_wrong_font))}  
+        🡆 Incorrect font(s) found here: {' >> '.join(map(str, bullet_wrong_font_words))}
+        ''')
+    # check if bullet_font is empty, if so this means that BULLET LIST ENGG1500 style was not found
+    elif len(bullet_font) == 0:
+        # print this if bullet_font is empty, since BULLET LIST ENGG1500 style was not found
+        st.info("ℹ️BULLET LIST ENGG1500 style font name not found as this style was not used.")
+
+    # TODO Font Name code for CAPTION ENGG1500 style
+    # check font name for CAPTION ENGG1500 style (figure and table captions) ********************
+    cap_font = set()  # store all CAPTION ENGG1500 style font names in the set cap_font
+    cap_wrong_font = set()  # store unacceptable CAPTION ENGG1500 style font names in the set cap_wrong_font
+    cap_wrong_font_words = sorted(set())  # store CAPTION ENGG1500 style text that are in unacceptable fonts in the sorted list cap_wrong_font_words
+    CORRECT_FONT_NAME_CAP = None  # state the specified font for CAPTION ENGG1500 style and store in the variable CORRECT_FONT_NAME_CAP
+    CAPTION_STYLE = 'CAPTION ENGG1500'  # state the specified style name for figure and table captions and store in the variable CAPTION_STYLE
+    for paragraph in WordFile.paragraphs:
+        if CAPTION_STYLE == paragraph.style.name:
+            for run in paragraph.runs:
+                # add fonts from each run into the set cap_font
+                cap_font.add(run.font.name)
+                # check if fonts are unacceptable, if so, store in the set cap_wrong_font
+                if run.font.name is not CORRECT_FONT_NAME_CAP:
+                    cap_wrong_font.add(run.font.name)
+                    # append CAPTION ENGG1500 style text that contain unacceptable fonts in the sorted list norm_wrong_font_words
+                    cap_wrong_font_words.append(run.text)
+
+    # check if any elements in cap_font are not CORRECT_FONT_NAME_CAP and if cap_font is not empty
+    if any(name is not CORRECT_FONT_NAME_CAP for name in cap_font) and len(cap_font) != 0:
+        # print this if any elements in cap_font are not CORRECT_FONT_NAME_CAP and if cap_font is not empty and print cap_wrong_font and cap_wrong_font_words contents
+        st.error(f'''
+        ❌ Text written in the CAPTION ENGG1500 style have incorrect font(s): {', '.join(map(str, cap_wrong_font))}  
+        🡆 Incorrect font(s) found here: {' >> '.join(map(str, cap_wrong_font_words))}
+        ''')
+    # check if cap_font is empty, if so this means that CAPTION ENGG1500 style was not found
+    elif len(cap_font) == 0:
+        # print this if cap_font is empty, since CAPTION ENGG1500 style was not found
+        st.info("ℹ️CAPTION ENGG1500 style font name not found as this style was not used.")
+
+    # TODO Font Name code for TABLE ENGG1500 style
+    # check font name for TABLE ENGG1500 style (text in tables) ********************
+    table_font = set()  # store all TABLE ENGG1500 style font names in the set table_font
+    table_wrong_font = set()  # store unacceptable TABLE ENGG1500 style font names in the set table_wrong_font
+    table_wrong_font_words = sorted(set())  # store TABLE ENGG1500 style text that are in unacceptable fonts in the sorted list table_wrong_font_words
+    CORRECT_FONT_NAME_TABLE = None  # state the specified font for TABLE ENGG1500 style and store in the variable CORRECT_FONT_NAME_TABLE
+    TABLE_TEXT_STYLE = 'TABLE ENGG1500'  # state the specified style name for text in tables and store in the variable TABLE_TEXT_STYLE
+    for table in WordFile.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    if TABLE_TEXT_STYLE == paragraph.style.name:
+                        for run in paragraph.runs:
+                            # add fonts from each run into the set table_font
+                            table_font.add(run.font.name)
+                            # check if fonts are unacceptable, if so, store in the set table_wrong_font
+                            if run.font.name is not CORRECT_FONT_NAME_TABLE:
+                                table_wrong_font.add(run.font.name)
+                                # append TABLE ENGG1500 style text that contain unacceptable fonts in the sorted list table_wrong_font_words
+                                table_wrong_font_words.append(run.text)
+
+    # check if any elements in table_font are not CORRECT_FONT_NAME_TABLE
+    if any(name is not CORRECT_FONT_NAME_TABLE for name in table_font) and len(table_font) != 0:
+        # print this if any elements in table_font are not CORRECT_FONT_NAME_TABLE and print table_wrong_font and table_wrong_font_words contents
+        st.error(f'''
+        ❌ Text written in the TABLE ENGG1500 style have incorrect font(s): {', '.join(map(str, table_wrong_font))}  
+        🡆 Incorrect font(s) found here: {' >> '.join(map(str, table_wrong_font_words))}
+        ''')
+    # check if table_font is empty, if so this means that TABLE ENGG1500 style was not found
+    elif len(table_font) == 0:
+        # print this if table_font is empty, which means that TABLE ENGG1500 style was not found
+        st.info("ℹ️TABLE ENGG1500 style font name not found as this style was not used.")
+
+
 # font size program function
 def font_size():
     # TODO start of Font Size code --------------------
@@ -1320,20 +1602,22 @@ def page_margin():
 # function to run selected programs(s)
 def run_program():
     if cb2:
-        font_size()
+        font_name()
     if cb3:
-        font_colour()
+        font_size()
     if cb4:
-        font_style()
+        font_colour()
     if cb5:
-        para_align()
+        font_style()
     if cb6:
-        spacing()
+        para_align()
     if cb7:
-        ref_count()
+        spacing()
     if cb8:
-        header_footer()
+        ref_count()
     if cb9:
+        header_footer()
+    if cb10:
         page_margin()
 
 
@@ -1344,25 +1628,27 @@ uploaded_file = st.sidebar.file_uploader("Choose a Word document", type='.docx',
 cb1 = st.sidebar.checkbox('All', key=2)
 # if 'All Formatting Items' is checked disable every other checkbox
 if cb1:
-    cb2 = st.sidebar.checkbox('Font Size', value=cb1, disabled=True, key=3)
-    cb3 = st.sidebar.checkbox('Font Colour', value=cb1, disabled=True, key=4)
-    cb4 = st.sidebar.checkbox('Font Style', value=cb1, disabled=True, key=5)
-    cb5 = st.sidebar.checkbox('Paragraph Alignment', value=cb1, disabled=True, key=6)
-    cb6 = st.sidebar.checkbox('Spacing', value=cb1, disabled=True, key=7)
-    cb7 = st.sidebar.checkbox('Reference Counter', value=cb1, disabled=True, key=8)
-    cb8 = st.sidebar.checkbox('Header and Footer', value=cb1, disabled=True, key=9)
-    cb9 = st.sidebar.checkbox('Page Margins', value=cb1, disabled=True, key=10)
+    cb2 = st.sidebar.checkbox('Font Name', value=cb1, disabled=True, key=3)
+    cb3 = st.sidebar.checkbox('Font Size', value=cb1, disabled=True, key=4)
+    cb4 = st.sidebar.checkbox('Font Colour', value=cb1, disabled=True, key=5)
+    cb5 = st.sidebar.checkbox('Font Style', value=cb1, disabled=True, key=6)
+    cb6 = st.sidebar.checkbox('Paragraph Alignment', value=cb1, disabled=True, key=7)
+    cb7 = st.sidebar.checkbox('Spacing', value=cb1, disabled=True, key=8)
+    cb8 = st.sidebar.checkbox('Reference Counter', value=cb1, disabled=True, key=9)
+    cb9 = st.sidebar.checkbox('Header and Footer', value=cb1, disabled=True, key=10)
+    cb10 = st.sidebar.checkbox('Page Margins', value=cb1, disabled=True, key=11)
 else:
-    cb2 = st.sidebar.checkbox('Font Size', key=11)
-    cb3 = st.sidebar.checkbox('Font Colour', key=12)
-    cb4 = st.sidebar.checkbox('Font Style', key=13)
-    cb5 = st.sidebar.checkbox('Paragraph Alignment', key=14)
-    cb6 = st.sidebar.checkbox('Spacing', key=15)
-    cb7 = st.sidebar.checkbox('Reference Counter', key=16)
-    cb8 = st.sidebar.checkbox('Header and Footer', key=17)
-    cb9 = st.sidebar.checkbox('Page Margins', key=18)
+    cb2 = st.sidebar.checkbox('Font Name', key=12)
+    cb3 = st.sidebar.checkbox('Font Size', key=13)
+    cb4 = st.sidebar.checkbox('Font Colour', key=14)
+    cb5 = st.sidebar.checkbox('Font Style', key=15)
+    cb6 = st.sidebar.checkbox('Paragraph Alignment', key=16)
+    cb7 = st.sidebar.checkbox('Spacing', key=17)
+    cb8 = st.sidebar.checkbox('Reference Counter', key=18)
+    cb9 = st.sidebar.checkbox('Header and Footer', key=19)
+    cb10 = st.sidebar.checkbox('Page Margins', key=20)
 
-start_btn = st.sidebar.button('Start', on_click=run_program, key=19)
+start_btn = st.sidebar.button('Start', on_click=run_program, key=21)
 st.sidebar.text("")
 st.sidebar.text("")
 
