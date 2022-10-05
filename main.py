@@ -1153,7 +1153,8 @@ def para_align():
                 if paragraph.alignment is not CORRECT_ALIGN_BODY:
                     body_wrong_align.add(paragraph.alignment)
                     # append BODY ENGG1500 style text that contain unacceptable paragraph alignment in the sorted list body_wrong_align_words
-                    body_wrong_align_words.append(paragraph.text)
+                    if paragraph.text not in body_wrong_align_words:
+                        body_wrong_align_words.append(paragraph.text)
 
     # check if any elements in body_align are not CORRECT_ALIGN_BODY
     if any(alignment is not CORRECT_ALIGN_BODY for alignment in body_align) and len(body_align) != 0:
@@ -1182,7 +1183,8 @@ def para_align():
                 if paragraph.alignment is not CORRECT_ALIGN_BULLET:
                     bullet_wrong_align.add(paragraph.alignment)
                     # append BULLET LIST ENGG1500 style text that contain unacceptable paragraph alignment in the sorted list bullet_wrong_align_words
-                    bullet_wrong_align_words.append(paragraph.text)
+                    if paragraph.text not in bullet_wrong_align_words:
+                        bullet_wrong_align_words.append(paragraph.text)
 
     # check if any elements in bullet_align are not CORRECT_ALIGN_BULLET and if the list bullet_align is not empty
     if any(alignment is not CORRECT_ALIGN_BULLET for alignment in bullet_align) and len(bullet_align) != 0:
@@ -1214,7 +1216,8 @@ def para_align():
                             if paragraph.alignment is not CORRECT_ALIGN_TABLE:
                                 table_wrong_align.add(paragraph.alignment)
                                 # append TABLE ENGG1500 style text that contain unacceptable paragraph alignment in the sorted list table_wrong_align_words
-                                table_wrong_align_words.append(paragraph.text)
+                                if paragraph.text not in table_wrong_align_words:
+                                    table_wrong_align_words.append(paragraph.text)
 
     # check if any elements in table_align are not CORRECT_ALIGN_TABLE
     if any(alignment is not CORRECT_ALIGN_TABLE for alignment in table_align) and len(table_align) != 0:
